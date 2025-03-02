@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorando los Teoremas Matemáticos</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Explorando los Teoremas Matemáticos</h1>
+        </header>
+
+        <!-- Menú de navegación -->
+        <nav>
+            <ul>
+                <li><a href="javascript:void(0);" onclick="showSection('teorema')">Teorema</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('explicacion')">Explicación</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('conocimientos-previos')">Conocimientos Previos</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('ejemplo')">Ejemplo</a></li>
+            </ul>
+        </nav>
+
+        <!-- Formulario -->
+        <form id="theoremForm">
+            <label for="teorema">Introduce tu teorema:</label>
+            <textarea id="teorema" name="teorema" rows="4" cols="50"></textarea>
+            <br>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <!-- Respuesta -->
+        <div id="respuesta-section" class="respuesta">
+            <div id="respuesta-teorema">
+                <h3 id="teorema-section">Teorema:</h3>
+                <div id="respuesta-teorema-content"></div>
+            </div>
+
+            <div id="respuesta-explicacion">
+                <h3 id="explicacion-section">Explicación:</h3>
+                <div id="respuesta-explicacion-content"></div>
+            </div>
+
+            <div id="respuesta-conocimientos-previos">
+                <h3 id="conocimientos-previos-section">Conocimientos Previos:</h3>
+                <div id="respuesta-conocimientos-previos-content"></div>
+            </div>
+
+            <div id="respuesta-ejemplo">
+                <h3 id="ejemplo-section">Ejemplo:</h3>
+                <div id="respuesta-ejemplo-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar la sección seleccionada y ocultar las demás
+        function showSection(sectionId) {
+            // Ocultar todas las respuestas
+            const sections = document.querySelectorAll('.respuesta > div');
+            sections.forEach(section => {
+                section.classList.remove('active');  // Ocultar la sección
+            });
+
+            // Mostrar la sección seleccionada
+            const selectedSection = document.getElementById('respuesta-' + sectionId);
+            selectedSection.classList.add('active');  // Mostrar la sección
+        }
+
+        document.getElementById("theoremForm").onsubmit = async (e) => {
+            e.preventDefault();
+
+            const teorema = document.getElementById("teorema").value;
+
+            const response = await fetch("/add_theorem", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ teorema: teorema })
+            });
+
+            const data = await response.json();
+
+            // Mostrar las respuestas en las secciones correspondientes
+            document.getElementById("respuesta-teorema-content").innerHTML = data.teorema || "No proporcionado";
+            document.getElementById("respuesta-explicacion-content").innerHTML = data.explicacion || "No proporcionado";
+            document.getElementById("respuesta-conocimientos-previos-content").innerHTML = data.conocimientos_previos || "No proporcionado";
+            document.getElementById("respuesta-ejemplo-content").innerHTML = data.ejemplo || "No proporcionado";
+
+            // Activar la sección de teorema por defecto
+            showSection('teorema');
+        };
+    </script>
+</body>
+</html>

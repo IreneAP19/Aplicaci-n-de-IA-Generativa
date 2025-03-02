@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Teoremas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00b4d8, #0077b6);
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #00b4d8;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0077b6;
+        }
+
+        .response {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a la API de Teoremas</h1>
+    <div class="container">
+        <h2>Ingresa el nombre de un teorema</h2>
+        <form id="theoremForm">
+            <input type="text" id="teorem" name="teorem" placeholder="Escribe un teorema" required>
+            <button type="submit">Obtener Explicación</button>
+        </form>
+        <div id="response" class="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('theoremForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let theorem = document.getElementById('teorem').value;
+
+            fetch('http://127.0.0.1:8000/add_theorem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ teorema: teorem })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerHTML = `
+                    <h3>Explicación:</h3>
+                    <p>${data.explanation}</p>
+                    <h3>Conocimientos previos:</h3>
+                    <p>${data.prior_knowledge}</p>
+                    <h3>Ejemplo:</h3>
+                    <p>${data.example}</p>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('response').innerHTML = `
+                    <p style="color: red;">Hubo un error al obtener la respuesta.</p>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>

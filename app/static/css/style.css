@@ -1,0 +1,139 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #00c6ff, #0072ff); 
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Estilo del contenedor */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 700px;
+    width: 100%;
+}
+
+/* Formulario */
+#theoremForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Respuesta */
+#respuesta-section {
+    margin-top: 30px;
+}
+
+.respuesta > div {
+    display: none;
+}
+
+.respuesta > div.active {
+    display: block;
+}
+
+/* Sección de respuestas */
+#respuesta-teorema,
+#respuesta-explicacion,
+#respuesta-conocimientos-previos,
+#respuesta-ejemplo {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Elementos matemáticos en los encabezados */
+h3#teorema-section::before {
+    content: "📐  "; /* Icono matemático para el teorema */
+    margin-right: 10px;
+}
+
+h3#explicacion-section::before {
+    content: "🔍  "; /* Icono para la explicación */
+    margin-right: 10px;
+}
+
+h3#conocimientos-previos-section::before {
+    content: "🎓  "; /* Icono para conocimientos previos */
+    margin-right: 10px;
+}
+
+h3#ejemplo-section::before {
+    content: "📚  "; /* Icono para el ejemplo */
+    margin-right: 10px;
+}
+
+/* Fórmulas matemáticas decorativas */
+#respuesta-teorema {
+    font-family: 'Courier New', monospace; /* Para dar un estilo matemático */
+    font-size: 1.2rem;
+}
+
+#respuesta-explicacion {
+    font-size: 1.1rem;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Elementos matemáticos y decorativos usando letras griegas */
+#respuesta-explicacion::before {
+    content: "🔢 ";
+}
+
+#respuesta-teorema::before {
+    content: "π "; /* Puede ser usado para el teorema */
+}
+
+/* Símbolos matemáticos (operaciones) en las respuestas */
+#respuesta-explicacion:after {
+    content: " ∑ "; /* Sumatoria */
+    margin-left: 5px;
+}
+
+#respuesta-conocimientos-previos:after {
+    content: " ∆ "; /* Diferencial */
+    margin-left: 5px;
+}
+
+#respuesta-ejemplo:after {
+    content: " √ "; /* Raíz cuadrada */
+    margin-left: 5px;
+}
+
+/* Utilización de símbolos griegos y otras operaciones */
+h3#teorema-section {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+h3#explicacion-section {
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+h3#conocimientos-previos-section {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+h3#ejemplo-section {
+    font-family: 'Verdana', sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
