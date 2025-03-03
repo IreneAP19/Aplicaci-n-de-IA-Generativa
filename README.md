@@ -1,5 +1,5 @@
 # Aplicación Web de Explicación de Teoremas Matemáticos
-![Texto alternativo](app\static\img\logo.png)
+![Texto alternativo](app/static/img/logo.png)
 
 Este proyecto consiste en una aplicación web que permite a los usuarios interactuar con el modelo de LLM Cohere para obtener explicaciones sencillas de teoremas matemáticos. Utiliza FastAPI para crear la API y una base de datos en AWS para almacenar el historial de interacciones de los usuarios.
 
