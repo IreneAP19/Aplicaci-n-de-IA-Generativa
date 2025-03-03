@@ -1,5 +1,8 @@
 fastapi==0.110.3
 uvicorn==0.29.0
-pandas==1.5.3
-numpy==1.26.4
-scikit-learn==1.2.2
+cohere==5.13.12
+pymysql == 1.1.1
+uuid == 1.30
+dotenv
+jinja2
+python-multipart

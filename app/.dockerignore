@@ -1,0 +1,8 @@
+
+__pycache__/
+.pytest_cache
+theorems.db
+.pytest_cache/
+BBDD.ipynb
+test/
+.gitignore
