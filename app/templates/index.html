@@ -3,95 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorando los Teoremas Matemáticos</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Teoremas Matemáticos</title>
+    <link rel="stylesheet" href="/static/style.css"> 
 </head>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1E3A8A, #ffffff, #1E3A8A);
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 200px;
+            height: 200px;
+            background: url('/static/img/logo.png') no-repeat center;
+            background-size: contain;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header h1 {
+            color: #f8f9fa;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #1E3A8A;
+        }
+
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: black;
+        }
+
+        label, textarea {
+            color: #0e0d0d;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background: #1E3A8A;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        button:hover {
+            background: #0F2A5A;
+        }
+
+        .respuesta {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            color: #000;
+            margin-top: 20px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        h3 {
+            text-shadow: 2px 2px 4px black;
+        }
+    </style>
+
+
 <body>
     <div class="container">
         <header>
-            <h1>Explorando los Teoremas Matemáticos</h1>
+            <h1>Generador de Explicaciones de Teoremas Matemáticos</h1>
+            <p>Introduce un teorema para recibir una explicación sencilla, los conocimientos previos necesarios y un ejemplo.</p>
         </header>
 
-        <!-- Menú de navegación -->
-        <nav>
-            <ul>
-                <li><a href="javascript:void(0);" onclick="showSection('teorema')">Teorema</a></li>
-                <li><a href="javascript:void(0);" onclick="showSection('explicacion')">Explicación</a></li>
-                <li><a href="javascript:void(0);" onclick="showSection('conocimientos-previos')">Conocimientos Previos</a></li>
-                <li><a href="javascript:void(0);" onclick="showSection('ejemplo')">Ejemplo</a></li>
-            </ul>
-        </nav>
+        <section class="form-section">
+            <h2>Introduce el Teorema</h2>
+            <form id="teorema-form">
+                <label for="teorema">Teorema:</label><br>
+                <textarea id="teorema" name="teorema" rows="4" placeholder="Escribe tu teorema aquí..." required></textarea><br>
+                <button type="submit">Generar Explicación</button>
+            </form>
+        </section>
 
-        <!-- Formulario -->
-        <form id="theoremForm">
-            <label for="teorema">Introduce tu teorema:</label>
-            <textarea id="teorema" name="teorema" rows="4" cols="50"></textarea>
-            <br>
-            <button type="submit">Enviar</button>
-        </form>
-
-        <!-- Respuesta -->
-        <div id="respuesta-section" class="respuesta">
-            <div id="respuesta-teorema">
-                <h3 id="teorema-section">Teorema:</h3>
-                <div id="respuesta-teorema-content"></div>
-            </div>
-
-            <div id="respuesta-explicacion">
-                <h3 id="explicacion-section">Explicación:</h3>
-                <div id="respuesta-explicacion-content"></div>
-            </div>
-
-            <div id="respuesta-conocimientos-previos">
-                <h3 id="conocimientos-previos-section">Conocimientos Previos:</h3>
-                <div id="respuesta-conocimientos-previos-content"></div>
-            </div>
-
-            <div id="respuesta-ejemplo">
-                <h3 id="ejemplo-section">Ejemplo:</h3>
-                <div id="respuesta-ejemplo-content"></div>
-            </div>
-        </div>
+        <!-- Mostrar los resultados aquí -->
+        <section id="respuesta" class="respuesta">
+            <h2>Resultados</h2>
+            <h3>Teorema: </h3>
+            <p id="teorema-text"></p>
+            <h3>Explicación:</h3>
+            <p id="explicacion"></p>
+            <h3>Conocimientos Previos:</h3>
+            <p id="conocimientos-previos"></p>
+            <h3>Ejemplo:</h3>
+            <p id="ejemplo"></p>
+        </section>
     </div>
 
     <script>
-        // Función para mostrar la sección seleccionada y ocultar las demás
-        function showSection(sectionId) {
-            // Ocultar todas las respuestas
-            const sections = document.querySelectorAll('.respuesta > div');
-            sections.forEach(section => {
-                section.classList.remove('active');  // Ocultar la sección
-            });
+        document.getElementById('teorema-form').addEventListener('submit', async function (e) {
+            e.preventDefault();  // Evita el comportamiento por defecto del formulario
 
-            // Mostrar la sección seleccionada
-            const selectedSection = document.getElementById('respuesta-' + sectionId);
-            selectedSection.classList.add('active');  // Mostrar la sección
-        }
+            // Obtiene el valor del campo de texto
+            const teorema = document.getElementById('teorema').value;
 
-        document.getElementById("theoremForm").onsubmit = async (e) => {
-            e.preventDefault();
-
-            const teorema = document.getElementById("teorema").value;
-
-            const response = await fetch("/add_theorem", {
-                method: "POST",
+            // Realiza la solicitud POST usando fetch
+            const response = await fetch('/add_theorem', {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ teorema: teorema })
+                body: JSON.stringify({ teorema: teorema })  // Enviar los datos como JSON
             });
 
+            // Parsear la respuesta JSON
             const data = await response.json();
 
-            // Mostrar las respuestas en las secciones correspondientes
-            document.getElementById("respuesta-teorema-content").innerHTML = data.teorema || "No proporcionado";
-            document.getElementById("respuesta-explicacion-content").innerHTML = data.explicacion || "No proporcionado";
-            document.getElementById("respuesta-conocimientos-previos-content").innerHTML = data.conocimientos_previos || "No proporcionado";
-            document.getElementById("respuesta-ejemplo-content").innerHTML = data.ejemplo || "No proporcionado";
+            // Mostrar los resultados en la página
+            if (data) {
+                document.getElementById('teorema-text').textContent = data.teorema;
+                document.getElementById('explicacion').innerHTML = data.explicacion;
+                document.getElementById('conocimientos-previos').innerHTML = data.conocimientos_previos;
+                document.getElementById('ejemplo').innerHTML = data.ejemplo;
 
-            // Activar la sección de teorema por defecto
-            showSection('teorema');
-        };
+                // Hacer visible la sección de resultados
+                document.getElementById('respuesta').classList.add('active');
+            }
+        });
     </script>
 </body>
 </html>

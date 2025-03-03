@@ -31,13 +31,14 @@ class Teorema(BaseModel):
     teorema: str
     
 @app.get("/", response_class=HTMLResponse)
-async def get_index(request: Request):
+async def read_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
 
 @app.post("/add_theorem")
 async def add_theorem(teorem: Teorema):
+    print("hola")
     # Inicializar cliente Cohere con la API Key
     co = cohere.Client(api_key=API_KEY)
 
@@ -58,7 +59,7 @@ async def add_theorem(teorem: Teorema):
     response = co.generate(
         model="command-r-plus-08-2024",  # Verifica si este es el modelo correcto
         prompt=prompt,
-        max_tokens=500
+        max_tokens=800
     )
 
     # Procesar la respuesta y extraer las tres partes
@@ -97,7 +98,7 @@ async def add_theorem(teorem: Teorema):
         ejemplo = "Ejemplo no generado."
 
     # Insertar el teorema y las respuestas en la base de datos
-    db = pymysql.connect(host =DB_HOST  ,
+    db = pymysql.connect(host = DB_HOST  ,
                      user = DB_USER,
                      password = DB_PASSWORD,
                      cursorclass = pymysql.cursors.DictCursor
@@ -119,6 +120,7 @@ async def add_theorem(teorem: Teorema):
     cursor.close()
 
     # Retornar las respuestas como un JSON
+    print(teorem.teorema)
     return {
         "teorema": teorem.teorema,
         "explicacion": explicacion,
@@ -128,5 +130,5 @@ async def add_theorem(teorem: Teorema):
 
 
 # Arrancar el servidor
-if __name__ == "__main__":
-    uvicorn.run("modelo_app_html:app", host="0.0.0.0", port=8000, reload=True)
+# if __name__ == "__main__":
+#     uvicorn.run("modelo_app_html:app", host="0.0.0.0", port=8000, reload=True)
