@@ -1,18 +1,20 @@
-# Utilizar una imagen de Phthon oficial
-FROM python:3.11-slim
+# Usamos la imagen oficial de Python
+FROM python:3.10-slim
 
-# Establecer el directorio del contenedor
+# Establecemos el directorio de trabajo
 WORKDIR /app
 
-# Copiamos todos los archivos al directorio del contenedor
-COPY . /app
+# Copiamos el archivo de dependencias
+COPY requirements.txt .
 
-# Instalar las dependencias
-RUN pip install -r requirements.txt
+# Instalamos las dependencias
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Exponer el puerto en el que la aplicación va a correr en el contenedor
+# Copiamos todos los archivos del proyecto
+COPY . .
+
+# Exponemos el puerto 8000
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación
-# CMD ["python", "app_model.py"]
-CMD ["uvicorn", "app_model:app", "--host", "0.0.0.0", "--port", "8000"]
+# Comando para ejecutar FastAPI con Uvicorn
+CMD ["uvicorn", "modelo_app_html:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
