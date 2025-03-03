@@ -13,6 +13,10 @@ from starlette.requests import Request
 # Cargar variables de entorno
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
 
 # Inicializar FastAPI
 app = FastAPI()
@@ -29,6 +33,7 @@ class Teorema(BaseModel):
 @app.get("/", response_class=HTMLResponse)
 async def get_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
 
 
 @app.post("/add_theorem")
@@ -92,12 +97,12 @@ async def add_theorem(teorem: Teorema):
         ejemplo = "Ejemplo no generado."
 
     # Insertar el teorema y las respuestas en la base de datos
-    db = pymysql.connect(
-        host="database-1.cdwam62w673f.eu-north-1.rds.amazonaws.com",
-        user="admin",
-        password="123456789",
-        cursorclass=pymysql.cursors.DictCursor
-    )
+    db = pymysql.connect(host =DB_HOST  ,
+                     user = DB_USER,
+                     password = DB_PASSWORD,
+                     cursorclass = pymysql.cursors.DictCursor
+            )
+
     cursor = db.cursor()
 
     # Usar la base de datos
