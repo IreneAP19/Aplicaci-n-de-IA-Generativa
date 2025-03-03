@@ -7,10 +7,7 @@ Este proyecto consiste en una aplicación web que permite a los usuarios interac
 - [Descripción](#descripción)
 - [Características](#características)
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Contribución](#contribución)
-- [Licencia](#licencia)
+- [Requisitos Previos](#Requisitos-Previosn)
 
 ## Descripción
 
@@ -36,3 +33,15 @@ La aplicación utiliza modelos pre-entrenado **Cohere**. Además, se almacena el
 - **DockerHub**: Repositorio para subir las imágenes Docker.
 - **GitHub**: Control de versiones y repositorio de código fuente.
 
+## Requisitos Previos
+- Cuenta en AWS para crear la base de datos
+- Docker (opcional, si deseas dockerizar la aplicación)
+- Cuenta en Cohere para obtener la clave API
+
+## Documentos
+- **Static**: Encontramos los documentos necesarios para hacer el front
+- **Templates**: Documento en .html donde se ha creado en front de la aplicación 
+- **Test**: Tenemos diversos test, fundamentales para asegurarse de que la API funcione correctamente, que las rutas devuelvan los resultados esperados y que la lógica esté funcionando como se espera.
+- **BBDD**: Tenemos la creación de la base de datos conectada a AWS que hemos creado con SQL
+- **modelo_app_html.py**: Encontramos la programación de la FastApi
+  
