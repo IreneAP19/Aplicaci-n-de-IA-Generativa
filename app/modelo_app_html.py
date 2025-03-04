@@ -38,7 +38,7 @@ async def read_index(request: Request):
 
 @app.post("/add_theorem")
 async def add_theorem(teorem: Teorema):
-    print("hola")
+    print("Bienvenido a tu app de matemáticas")
     # Inicializar cliente Cohere con la API Key
     co = cohere.Client(api_key=API_KEY)
 
